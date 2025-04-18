@@ -1,0 +1,37 @@
+# Ignore node_modules everywhere
+**/node_modules
+
+# Ignore all build outputs
+**/dist
+**/.vite
+**/.tsbuildinfo
+
+# Ignore environment files
+**/.env
+**/.env.local
+
+# Ignore local uploads or cache dirs
+backend/uploads
+frontend/.eslintcache
+
+# Logs and debug info
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# ZIPs or local exports
+*.zip
