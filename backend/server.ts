@@ -2,20 +2,25 @@ import express, { Request, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { Pool } from 'pg';
-import { ingestJsonFile } from './ingest/ingest';
+import pg from 'pg';
+const { Pool } = pg;
+import { ingestJsonFile } from './ingest/ingest.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const app = express();
 const PORT = 3001;
 
 const pool = new Pool({
   user: 'spotify',
-  host: 'localhost',
   database: 'spotify',
   password: 'spotify',
+  host: 'localhost',
   port: 5432,
 });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 app.post('/upload', upload.single('file'), async (req: Request, res: Response) => {
