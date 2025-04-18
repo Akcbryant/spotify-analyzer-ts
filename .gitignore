@@ -1,0 +1,43 @@
+# Top-level ignores
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+
+# Frontend build + IDE junk
+/frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.eslintcache
+
+# Backend build and dependencies
+/backend/node_modules/
+backend/dist/
+backend/uploads/
+backend/.tsbuildinfo
+
+# Prisma (if added later)
+backend/prisma/dev.db
+backend/prisma/.env
+
+# Docker volumes (optional if you're mounting volumes)
+db/postgres_data/
+
+# OS & Editor files
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+.idea/
+.vscode/
+Thumbs.db
+
+# Logs and temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Mac-specific
+.AppleDouble
