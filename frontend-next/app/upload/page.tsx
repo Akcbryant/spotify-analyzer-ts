@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import { useState } from 'react';
 
 export default function UploadPage() {
   const [message, setMessage] = useState<string | null>(null);
@@ -11,7 +13,7 @@ export default function UploadPage() {
     formData.append('file', file);
 
     try {
-      const res = await fetch('/upload', {
+      const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -28,9 +30,9 @@ export default function UploadPage() {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Upload Spotify JSON</h2>
-      <input type="file" accept=".json" onChange={handleUpload} />
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Upload Spotify JSON</h1>
+      <input type="file" accept=".json" onChange={handleUpload} className="mb-4" />
       {message && <p>{message}</p>}
     </div>
   );

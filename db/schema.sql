@@ -25,5 +25,6 @@ CREATE TABLE listening_history (
     offline BOOLEAN,
     incognito_mode BOOLEAN,
     reason_start TEXT,
-    reason_end TEXT
+    reason_end TEXT,
+    UNIQUE(track_id, timestamp, ms_played)
 );
