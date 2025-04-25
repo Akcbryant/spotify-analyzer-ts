@@ -6,13 +6,13 @@
     "node": "20.18.0"
   },
   "workspaces": [
-    "frontend",
-    "backend"
+    "frontend-next"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
-    "build": "npm run build --workspaces",
-    "start": "concurrently \"npm run start --workspace backend\" \"npm run preview --workspace frontend\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "devDependencies": {
     "@types/pg": "^8.11.13",

@@ -1,7 +1,7 @@
 import { IncomingForm } from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
-import { Pool } from 'pg';
+import pool from "@/lib/db";
 
 // Disable Next.js default body parser to handle multipart/form-data
 export const config = {
@@ -9,15 +9,6 @@ export const config = {
     bodyParser: false,
   },
 };
-
-// Setup your Postgres pool
-const pool = new Pool({
-  user: 'spotify',
-  host: 'localhost',
-  database: 'spotify',
-  password: 'spotify',
-  port: 5432,
-});
 
 // Define the expected shape of your Spotify history JSON
 type SpotifyEntry = {
