@@ -30,7 +30,6 @@ type SpotifyEntry = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('endpoint pages/api/upload.ts handler')
   if (req.method !== 'POST') return res.status(405).end();
 
   const form = new IncomingForm({ multiples: false });

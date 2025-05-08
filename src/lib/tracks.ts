@@ -6,14 +6,13 @@ export type Track = {
   total_play_time: number;
 };
 
-export async function getTopTracks(): Promise<Track[]> {
-  const res = await fetch('http://localhost:3000/api/top-tracks', {
-    cache: 'no-store',
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch top tracks');
-  }
-
+export async function getTopTracks(
+  sort: string = 'play_count',
+  dir: string = 'desc',
+  page = 1,
+  limit = 50
+) {
+  const res = await fetch(`http://localhost:3000/api/top-tracks?sort=${sort}&dir=${dir}&page=${page}&limit=${limit}`, {cache: 'no-store'});
   return res.json();
 }
+

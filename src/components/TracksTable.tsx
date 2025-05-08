@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 
 type Track = {
   track_name: string;
@@ -12,31 +14,28 @@ type Track = {
 
 type Props = {
   data: Track[];
+  sort: string;
+  dir: 'asc' | 'desc';
 };
 
-export function TracksTable({ data }: Props) {
-  const [sortKey, setSortKey] = useState<keyof Track>('play_count');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+export function TracksTable({ data, sort, dir }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
 
   const toggleSort = (key: keyof Track) => {
-    if (key === sortKey) {
-      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortKey(key);
-      setSortDir('desc');
-    }
-  };
+    const currentSort = searchParams?.get('sort') ?? 'play_count';
+    const currentDir = searchParams?.get('dir') ?? 'desc';
 
-  const sorted = [...data].sort((a, b) => {
-    const aVal = a[sortKey];
-    const bVal = b[sortKey];
-    if (typeof aVal === 'number' && typeof bVal === 'number') {
-      return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
-    }
-    return sortDir === 'asc'
-      ? String(aVal).localeCompare(String(bVal))
-      : String(bVal).localeCompare(String(aVal));
-  });
+    const nextDir = currentSort === key && currentDir === 'desc' ? 'asc' : 'desc';
+
+    const params = new URLSearchParams(searchParams!);
+    params.set('sort', key);
+    params.set('dir', nextDir);
+    params.set('page', '1');
+
+    router.push(`?${params.toString()}`);
+  };
 
   const headers: { key: keyof Track; label: string; align?: 'right' }[] = [
     { key: 'track_name', label: 'Track' },
@@ -57,12 +56,13 @@ export function TracksTable({ data }: Props) {
               onClick={() => toggleSort(key)}
               className={`px-4 py-2 border-r last:border-r-0 font-medium whitespace-nowrap ${
                 align === 'right' ? 'text-right' : 'text-left'
-              } cursor-pointer select-none`}
+              } cursor-pointer select-none
+              ${ sort === key ? 'bg-blue-50' : '' }`}
             >
               <div className="flex items-center justify-between">
                 <span>{label}</span>
-                {sortKey === key && (
-                  <span className="ml-1 text-gray-500">{sortDir === 'asc' ? '▲' : '▼'}</span>
+                {sort === key && (
+                  <span className="ml-1 text-gray-500">{dir === 'asc' ? '▲' : '▼'}</span>
                 )}
               </div>
             </th>
@@ -70,18 +70,27 @@ export function TracksTable({ data }: Props) {
         </tr>
         </thead>
         <tbody>
-        {sorted.map((track, i) => (
+        {data.map((track, i) => (
           <tr key={i} className="even:bg-gray-50 border-b">
-            <td className="px-4 py-2 border-r">{track.track_name}</td>
-            <td className="px-4 py-2 border-r">{track.artist_name}</td>
-            <td className="px-4 py-2 border-r">{track.album_name}</td>
-            <td className="px-4 py-2 border-r text-right">{track.play_count}</td>
-            <td className="px-4 py-2 text-right">
+            <td className={`px-4 py-2 border-r ${sort === 'track_name' ? 'bg-blue-50' : ''}`}>
+              {track.track_name}
+            </td>
+            <td className={`px-4 py-2 border-r ${sort === 'artist_name' ? 'bg-blue-50' : ''}`}>
+              {track.artist_name}
+            </td>
+            <td className={`px-4 py-2 border-r ${sort === 'album_name' ? 'bg-blue-50' : ''}`}>
+              {track.album_name}
+            </td>
+            <td className={`px-4 py-2 border-r text-right ${sort === 'play_count' ? 'bg-blue-50' : ''}`}>
+              {track.play_count}
+            </td>
+            <td className={`px-4 py-2 text-right ${sort === 'total_play_time' ? 'bg-blue-50' : ''}`}>
               {formatMilliseconds(track.total_play_time)}
             </td>
           </tr>
         ))}
         </tbody>
+
       </table>
     </div>
   );
