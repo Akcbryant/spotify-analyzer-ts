@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 
-const pool = new Pool({
+export const pool = new Pool({
   user: 'spotify',
   host: 'localhost',
   database: 'spotify',

@@ -28,3 +28,14 @@ CREATE TABLE listening_history (
     reason_end TEXT,
     UNIQUE(track_id, timestamp, ms_played)
 );
+
+CREATE TABLE IF NOT EXISTS embeddings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    type TEXT NOT NULL, -- 'track', 'album', or 'history'
+    record_id TEXT NOT NULL,
+    content TEXT NOT NULL,
+    embedding VECTOR(768),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+-- Optional: index for faster search by record
+CREATE INDEX IF NOT EXISTS idx_embeddings_type_record ON embeddings(type, record_id);

@@ -22,7 +22,6 @@ export function TracksTable({ data, sort, dir }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-
   const toggleSort = (key: keyof Track) => {
     const currentSort = searchParams?.get('sort') ?? 'play_count';
     const currentDir = searchParams?.get('dir') ?? 'desc';

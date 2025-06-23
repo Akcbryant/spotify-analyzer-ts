@@ -1,6 +1,6 @@
-import {getTopTracks} from '@/lib/tracks';
-import {TracksTable} from '@/components/TracksTable';
-import {PaginationControls} from "@/components/PaginationControls";
+import { getTopTracks } from '@/lib/tracks';
+import { TracksTable } from '@/components/TracksTable';
+import { PaginationControls } from "@/components/PaginationControls";
 
 export default async function TracksPage({ searchParams }: { searchParams: Record<string, string> }) {
   const awaitedSearchParams = await searchParams;
