@@ -1,5 +1,9 @@
 # Spotify Analyzer with LLM-Powered Search
 
+<p align="center">
+  <img src="public/logo.png" width="200" alt="Spotify Analyzer Logo" />
+</p>
+
 This app lets you upload your Spotify listening history and explore it using semantic search powered by vector embeddings and a local Ollama model.
 
 ---
