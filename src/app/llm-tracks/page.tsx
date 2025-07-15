@@ -7,6 +7,8 @@ type TrackResult = {
   name: string;
   artist: string;
   similarity: number;
+  content: string;
+  explanation?: string;
 };
 
 export default function LlmTracksPage() {
@@ -68,7 +70,10 @@ export default function LlmTracksPage() {
           <div key={track.id} className="border p-4 rounded shadow-sm">
             <div className="font-semibold text-lg">{track.name}</div>
             <div className="text-gray-600">{track.artist}</div>
-            <div className="text-sm text-gray-400">Similarity: {track.similarity.toFixed(3)}</div>
+            <div className="text-sm text-gray-400 mb-1">Similarity: {track.similarity.toFixed(3)}</div>
+            {track.explanation && (
+              <div className="text-sm text-gray-700 italic mt-2">💬 {track.explanation}</div>
+            )}
           </div>
         ))}
       </div>

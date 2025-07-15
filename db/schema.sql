@@ -39,3 +39,6 @@ CREATE TABLE IF NOT EXISTS embeddings (
 );
 -- Optional: index for faster search by record
 CREATE INDEX IF NOT EXISTS idx_embeddings_type_record ON embeddings(type, record_id);
+-- 🔒 Required for ON CONFLICT (type, record_id)
+CREATE UNIQUE INDEX IF NOT EXISTS embeddings_type_record_id_unique
+    ON embeddings(type, record_id);
