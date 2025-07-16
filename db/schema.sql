@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS embeddings (
     content TEXT NOT NULL,
     embedding VECTOR(768),
     created_at TIMESTAMP DEFAULT NOW()
+    COLUMN last_updated TIMESTAMP DEFAULT NOW();
 );
 -- Optional: index for faster search by record
 CREATE INDEX IF NOT EXISTS idx_embeddings_type_record ON embeddings(type, record_id);
