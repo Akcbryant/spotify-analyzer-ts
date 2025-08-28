@@ -96,7 +96,7 @@ Ollama must be running at `http://localhost:11434` for embeddings and LLM explan
 After each upload, run:
 
 ```bash
-ts-node scripts/enrich-track-embeddings-incremental.js
+npm run embed:tracks
 ```
 
 This will:
